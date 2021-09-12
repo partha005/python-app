@@ -11,8 +11,8 @@ load_dotenv()
 # ptvsd.enable_attach(address=('0.0.0.0', 3000))
 
 class DBManager:
-    def __init__(self, database='', host="", user="root", password_file=None):
-        pf = open(password_file, 'r')
+    def __init__(self, database='', host="", user="root", password=""):
+        #pf = open(password_file, 'r')
         self.connection = mysql.connector.connect(
             user=user, 
             password=os.getenv('MYSQL_ROOT_PASSWORD'),
@@ -21,7 +21,7 @@ class DBManager:
             database=os.getenv('MYSQL_DATABASE'),
             auth_plugin='mysql_native_password'
         )
-        pf.close()
+        #pf.close()
         self.cursor = self.connection.cursor()
     
     def populate_db(self):
@@ -45,7 +45,7 @@ conn = None
 def listBlog():
     global conn
     if not conn:
-        conn = DBManager(password_file='/run/secrets/db-password')
+        conn = DBManager()
         conn.populate_db()
     rec = conn.query_titles()
 
