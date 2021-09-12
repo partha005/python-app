@@ -3,10 +3,7 @@ services:
   app:
     build: app
     restart: always
-    secrets:
-      - db-password
     networks:
-      - backend-network
       - frontend-network
 
   web:
@@ -18,9 +15,5 @@ services:
       - frontend-network
 volumes:
   db-data:
-secrets:
-  db-password:
-    file: app/password.txt
 networks:
-  backend-network:
   frontend-network:
